@@ -119,7 +119,7 @@
   .announce-bar__close:hover{ color:var(--ink); }
 
   .nav{
-    position:fixed; top:36px; left:0; right:0; z-index:100;
+    position:fixed; top:0; left:0; right:0; z-index:100;
     padding:22px 40px;
     display:flex; align-items:center; justify-content:space-between;
     background:transparent;
@@ -134,7 +134,6 @@
                color .35s ease;
     color:var(--paper);
   }
-  .nav.bar-hidden{ top:0; }
   .nav.is-solid{
     background:rgba(250,248,244,.94);
     backdrop-filter:blur(20px) saturate(200%);
@@ -319,8 +318,7 @@
 
   @media (max-width:768px){
     .announce-bar{ padding:8px 36px 8px 16px; font-size:10px; }
-    .nav{ padding:14px 22px; top:34px; }
-    .nav.bar-hidden{ top:0; }
+    .nav{ padding:14px 22px; top:0; }
     .nav-links{ display:none; }
     .nav-cta{ display:none; }
     .nav-hamburger{ display:flex; }
@@ -1318,6 +1316,137 @@
   /* ====== PREMIUM DYNAMIC LAYER · 21st.dev-inspired ==== */
   /* ==================================================== */
 
+  /* ==================== */
+  /* SERVIÇOS DETALHADOS  */
+  /* ==================== */
+  .servicos{ background:var(--paper); padding:120px 40px; }
+  .servicos-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    border-top:1px solid var(--rule);
+    margin-top:60px;
+  }
+  @media(max-width:768px){ .servicos-grid{grid-template-columns:1fr;} }
+
+  .servico-item{
+    padding:32px 28px;
+    border-bottom:1px solid var(--rule);
+    border-right:1px solid var(--rule);
+    display:grid;
+    grid-template-columns:28px 1fr;
+    gap:0 20px;
+    transition:background .2s ease;
+  }
+  .servico-item:nth-child(even){ border-right:none; }
+  @media(max-width:768px){ .servico-item{ border-right:none; } }
+  .servico-item:hover{ background:var(--cream); }
+  .servico-item--featured{
+    background:var(--ink);
+    color:var(--paper);
+  }
+  .servico-item--featured:hover{ background:var(--ink); }
+  .servico-item--featured .servico-name{ color:var(--paper); }
+  .servico-item--featured .servico-tag{ color:var(--gold-soft); }
+  .servico-item--featured .servico-desc{ color:rgba(250,248,244,.75); }
+  .servico-item--featured .servico-num{ color:var(--gold); }
+
+  .servico-num{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:18px;
+    font-weight:500;
+    color:var(--gold);
+    padding-top:2px;
+    flex-shrink:0;
+  }
+  .servico-body{ display:flex; flex-direction:column; gap:6px; }
+  .servico-name{
+    font-family:'Playfair Display',serif;
+    font-size:18px; font-weight:500;
+    color:var(--ink); line-height:1.2;
+  }
+  .servico-tag{
+    font-family:'Open Sans',sans-serif;
+    font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+    font-weight:700; color:var(--gold);
+  }
+  .servico-desc{
+    font-size:14px; color:var(--ink-body);
+    line-height:1.6; margin-top:4px;
+  }
+  .servico-badge{
+    display:inline-flex; align-items:center;
+    font-size:10px; letter-spacing:.16em; text-transform:uppercase;
+    font-weight:600; color:var(--sage);
+    margin-top:8px;
+    padding:4px 10px;
+    border:1px solid var(--rule);
+    border-radius:2px;
+    background:var(--cream);
+    width:fit-content;
+  }
+
+  /* MAYA */
+  .maya-block{
+    margin-top:60px;
+    border:1px solid var(--gold-pale);
+    border-left:4px solid var(--gold);
+    background:var(--cream);
+    padding:40px 36px;
+    display:grid;
+    grid-template-columns:120px 1fr;
+    gap:0 40px;
+    align-items:start;
+    border-radius:2px;
+  }
+  @media(max-width:640px){
+    .maya-block{ grid-template-columns:1fr; gap:24px 0; padding:28px 24px; }
+  }
+  .maya-block__left{
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+    text-align:center;
+  }
+  .maya-block__icon{
+    width:60px; height:60px; border-radius:50%;
+    background:var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Playfair Display',serif;
+    font-style:italic; font-size:28px; font-weight:500;
+    color:var(--gold);
+  }
+  .maya-block__label{
+    font-size:9px; letter-spacing:.28em; text-transform:uppercase;
+    font-weight:700; color:var(--muted);
+  }
+  .maya-block__right{ display:flex; flex-direction:column; gap:8px; }
+  .maya-block__name{
+    font-family:'Playfair Display',serif;
+    font-size:28px; font-weight:700; letter-spacing:.08em;
+    color:var(--ink);
+  }
+  .maya-block__role{
+    font-family:'Open Sans',sans-serif;
+    font-size:11px; letter-spacing:.22em; text-transform:uppercase;
+    font-weight:600; color:var(--gold);
+  }
+  .maya-block__desc{
+    font-size:15px; color:var(--ink-body);
+    line-height:1.7; margin-top:6px; max-width:600px;
+  }
+  .maya-block__chips{
+    display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;
+  }
+  .maya-block__chips span{
+    font-size:10px; letter-spacing:.18em; text-transform:uppercase;
+    font-weight:600;
+    padding:5px 12px;
+    border:1px solid var(--gold-pale);
+    border-radius:2px;
+    color:var(--ink-body);
+    background:var(--paper);
+  }
+
   /* Custom cursor */
   .cursor-dot{
     position:fixed; top:0; left:0;
@@ -2251,14 +2380,6 @@
     position:relative; z-index:51;
     pointer-events:none; user-select:none;
   }
-  .hero-wordmark::after{
-    content:"";
-    position:absolute; bottom:-14px; left:50%;
-    transform:translateX(-50%);
-    width:40px; height:1px;
-    background:linear-gradient(to right, transparent, #c6a573, transparent);
-    opacity:.65;
-  }
   .hero-wordmark__letter {
     display:inline-block;
     opacity:0;
@@ -2560,7 +2681,7 @@
     background-image: linear-gradient(160deg, #d5be99 0%, #c6a573 30%, #fdf7f2 52%, #c6a573 72%, #d5be99 100%);
     background-size: 200% 100%;
     -webkit-text-stroke: 0.5px rgba(198,165,115,0.3);
-    filter: drop-shadow(0 0 32px rgba(198,165,115,.25)) drop-shadow(0 2px 10px rgba(0,0,0,.4));
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,.35));
     opacity: 0;
     transform: translateY(50px);
     animation: lamp-fade-up 1.1s cubic-bezier(0.22,1,0.36,1) 0.65s forwards,
@@ -2663,14 +2784,6 @@
 <!-- Custom cursor -->
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
-
-<!-- ============ ANNOUNCE BAR ============ -->
-<div class="announce-bar" id="announceBar">
-  <span class="announce-bar__dot" aria-hidden="true"></span>
-  <span class="announce-bar__text">Próxima turma · vagas limitadas</span>
-  <a href="#cta" class="announce-bar__link">Ver disponibilidade →</a>
-  <button class="announce-bar__close" id="announceClose" aria-label="Fechar">×</button>
-</div>
 
 <!-- ============ NAV ============ -->
 <nav class="nav" id="mainNav">
@@ -3039,6 +3152,133 @@
   </div>
 </section>
 
+<!-- ============ SERVIÇOS DETALHADOS ============ -->
+<section class="servicos" id="servicos">
+  <div class="container">
+    <div class="section-label">07 · O que está incluído</div>
+    <h2 class="section-title">Dez pilares.<br><em class="italic-gold">Cada um explicado.</em></h2>
+    <p class="section-lede">O programa Aletheia não é uma consulta com follow-up. É um ecossistema clínico completo — cada pilar activo, integrado e revisto ao longo do tempo.</p>
+
+    <div class="servicos-grid">
+
+      <div class="servico-item">
+        <div class="servico-num">I</div>
+        <div class="servico-body">
+          <div class="servico-name">Tempo Terapêutico</div>
+          <div class="servico-tag">Consultas contínuas</div>
+          <p class="servico-desc">Consultas adaptadas ao ritmo da tua biologia, não ao relógio. Padrões que levaram anos a instalar-se não se resolvem em 45 minutos. Número de consultas ajustado à extensão e complexidade do teu caso.</p>
+        </div>
+      </div>
+
+      <div class="servico-item">
+        <div class="servico-num">II</div>
+        <div class="servico-body">
+          <div class="servico-name">Relatório BioFuncional ODX</div>
+          <div class="servico-tag">Incluído · valor €150</div>
+          <p class="servico-desc">Análise profunda dos teus exames em intervalos funcionais óptimos. Identifica o que estava escondido: resistência insulínica, má absorção, dominância estrogénica, défices subclínicos.</p>
+        </div>
+      </div>
+
+      <div class="servico-item">
+        <div class="servico-num">III</div>
+        <div class="servico-body">
+          <div class="servico-name">Plano Terapêutico de Precisão</div>
+          <div class="servico-tag">Escrito e actualizado</div>
+          <p class="servico-desc">Roteiro clínico escrito que respeita a hierarquia do corpo. Actualizado continuamente à medida que a tua fisiologia responde. Não é um protocolo genérico — é o teu mapa.</p>
+        </div>
+      </div>
+
+      <div class="servico-item">
+        <div class="servico-num">IV</div>
+        <div class="servico-body">
+          <div class="servico-name">Consulta de Medicina Geral e Familiar</div>
+          <div class="servico-tag">2 consultas incluídas</div>
+          <p class="servico-desc">Duas consultas de medicina familiar com médico parceiro incluídas no programa. Acompanhamento clínico completo — não paralelo ao teu médico de família, mas integrado com ele.</p>
+          <div class="servico-badge">✓ Incluída no programa</div>
+        </div>
+      </div>
+
+      <div class="servico-item">
+        <div class="servico-num">V</div>
+        <div class="servico-body">
+          <div class="servico-name">Testes Funcionais Profundos</div>
+          <div class="servico-tag">Com desconto parceiro</div>
+          <p class="servico-desc">DUTCH (hormonal completo), GI360 (microbioma) e OAT (ácidos orgânicos) disponíveis com desconto de parceria. Interpretação integrada no plano clínico — não relatórios isolados.</p>
+          <div class="servico-badge">Recomendado de acordo com o teu caso</div>
+        </div>
+      </div>
+
+      <div class="servico-item">
+        <div class="servico-num">VI</div>
+        <div class="servico-body">
+          <div class="servico-name">Plano Alimentar Evolutivo</div>
+          <div class="servico-tag">Revisto a cada fase</div>
+          <p class="servico-desc">O que o teu corpo precisa na fase de eliminação é diferente do que precisa na reconstrução. O plano alimentar é revisto a cada etapa — nunca estático, sempre alinhado com a tua fase clínica.</p>
+        </div>
+      </div>
+
+      <div class="servico-item">
+        <div class="servico-num">VII</div>
+        <div class="servico-body">
+          <div class="servico-name">Suplementação Activa</div>
+          <div class="servico-tag">Timing clínico</div>
+          <p class="servico-desc">Não é protocolo estático. Cada nutriente tem timing clínico específico. Dosagens ajustadas conforme biomarcadores e resposta fisiológica ao longo do programa.</p>
+        </div>
+      </div>
+
+      <div class="servico-item">
+        <div class="servico-num">VIII</div>
+        <div class="servico-body">
+          <div class="servico-name">Suporte ao Sistema Nervoso</div>
+          <div class="servico-tag">Por indicação clínica</div>
+          <p class="servico-desc">Quando indicado, acesso a parceiros especializados em libertação somática, coaching e yoga terapêutico. O sistema nervoso tem de sinalizar segurança para o corpo poder reparar.</p>
+          <div class="servico-badge">Recomendado de acordo com a extensão do teu programa</div>
+        </div>
+      </div>
+
+      <div class="servico-item">
+        <div class="servico-num">IX</div>
+        <div class="servico-body">
+          <div class="servico-name">App Aletheia Virtual-First</div>
+          <div class="servico-tag">Acesso contínuo</div>
+          <p class="servico-desc">Plano sempre actualizado, gestão de suplementos, comunicação com a equipa e registo de sintomas. Acessível onde estiveres no mundo — a clínica vai contigo.</p>
+        </div>
+      </div>
+
+      <div class="servico-item servico-item--featured">
+        <div class="servico-num">X</div>
+        <div class="servico-body">
+          <div class="servico-name">Coordenação Total</div>
+          <div class="servico-tag">O coração do programa</div>
+          <p class="servico-desc">Tu não juntas peças. A Catarina actua como motor central que mantém cada profissional e cada dado em sincronia — do início ao fim do programa, sem falhas de comunicação.</p>
+          <div class="servico-badge">✓ Sempre incluída</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- MAYA block -->
+    <div class="maya-block">
+      <div class="maya-block__left">
+        <div class="maya-block__icon">M</div>
+        <div class="maya-block__label">Apoio Virtual</div>
+      </div>
+      <div class="maya-block__right">
+        <div class="maya-block__name">MAYA</div>
+        <div class="maya-block__role">O teu agente de nutrição funcional</div>
+        <p class="maya-block__desc">MAYA é o agente de inteligência artificial integrado no programa Aletheia. Disponível 24/7 para esclarecer dúvidas sobre o teu plano alimentar, suplementação, sintomas e protocolo — com base na tua bioquímica específica, não em informação genérica. Não substitui a Catarina. Amplifica o teu acesso ao conhecimento entre consultas.</p>
+        <div class="maya-block__chips">
+          <span>Nutrição funcional</span>
+          <span>Suplementação</span>
+          <span>Sintomas</span>
+          <span>24/7</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- ============ OBJECÇÕES ============ -->
 <section class="objecoes">
   <div class="container-narrow">
@@ -3328,28 +3568,10 @@
     const bar = document.getElementById('scrollProgress');
     const nav = document.querySelector('.nav');
     const hero = document.querySelector('.lamp-hero');
-    const announceBar = document.getElementById('announceBar');
-    const announceClose = document.getElementById('announceClose');
     const navHamburger = document.getElementById('navHamburger');
     const navDrawer = document.getElementById('navDrawer');
     const drawerLinks = document.querySelectorAll('.drawer-link');
     let ticking = false;
-    let barVisible = true;
-
-    // Announce bar close
-    if (announceClose) {
-      announceClose.addEventListener('click', () => {
-        announceBar.classList.add('is-hidden');
-        nav.classList.add('bar-hidden');
-        barVisible = false;
-        sessionStorage.setItem('announceClosed', '1');
-      });
-    }
-    if (sessionStorage.getItem('announceClosed')) {
-      announceBar && announceBar.classList.add('is-hidden');
-      nav && nav.classList.add('bar-hidden');
-      barVisible = false;
-    }
 
     // Hamburger toggle
     if (navHamburger && navDrawer) {
