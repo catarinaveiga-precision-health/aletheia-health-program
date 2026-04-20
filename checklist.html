@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>12 Análises que o Teu Médico Raramente Pede · Aletheia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1a1a18;
+    --paper:#faf8f4;
+    --cream:#fdf7f2;
+    --gold:#c6a573;
+    --gold-soft:#d5be99;
+    --gold-pale:#ede3d0;
+    --sage:#6b7c6b;
+    --muted:#757575;
+    --rule:#e8e2d6;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{font-size:16px;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Open Sans',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---- PAGE ---- */
+  .page{
+    max-width:720px;
+    margin:0 auto;
+    padding:60px 40px 80px;
+  }
+  @media(max-width:600px){ .page{padding:40px 24px 60px;} }
+
+  /* ---- HEADER ---- */
+  .doc-header{
+    border-bottom:2px solid var(--ink);
+    padding-bottom:32px;
+    margin-bottom:40px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .doc-header__brand{
+    display:flex; align-items:center; gap:10px;
+  }
+  .doc-header__mark{
+    width:32px; height:32px; border-radius:50%;
+    background:var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Playfair Display',serif;
+    font-style:italic; font-size:18px; font-weight:500;
+    color:var(--paper);
+  }
+  .doc-header__brand-name{
+    font-family:'Playfair Display',serif;
+    font-style:italic; font-size:18px; font-weight:500;
+    color:var(--ink);
+  }
+  .doc-header__eyebrow{
+    font-size:10px; letter-spacing:.3em; text-transform:uppercase;
+    font-weight:700; color:var(--gold);
+  }
+  .doc-header__title{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(28px,5vw,42px);
+    font-weight:500; line-height:1.1;
+    letter-spacing:-.015em;
+    color:var(--ink);
+  }
+  .doc-header__title em{ font-style:italic; color:var(--gold); }
+  .doc-header__sub{
+    font-size:15px; color:var(--muted); line-height:1.6;
+    max-width:560px;
+  }
+  .doc-header__meta{
+    display:flex; gap:24px; flex-wrap:wrap;
+    font-size:11px; letter-spacing:.2em; text-transform:uppercase;
+    font-weight:600; color:var(--muted);
+    margin-top:4px;
+  }
+
+  /* ---- INTRO BOX ---- */
+  .intro-box{
+    background:var(--ink);
+    color:var(--paper);
+    padding:28px 32px;
+    border-radius:2px;
+    margin-bottom:48px;
+    position:relative;
+    overflow:hidden;
+  }
+  .intro-box::before{
+    content:"";
+    position:absolute; top:0; left:0; bottom:0; width:3px;
+    background:var(--gold);
+  }
+  .intro-box p{
+    font-family:'Playfair Display',serif;
+    font-style:italic; font-size:17px;
+    line-height:1.55; color:rgba(250,248,244,.9);
+  }
+  .intro-box p em{ color:var(--gold-soft); font-style:normal; font-weight:500; }
+
+  /* ---- SECTION TITLE ---- */
+  .section-title{
+    font-family:'Playfair Display',serif;
+    font-size:12px; font-style:normal; font-weight:700;
+    letter-spacing:.28em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:20px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--gold-pale);
+  }
+
+  /* ---- ANALYSIS CARDS ---- */
+  .analysis-group{ margin-bottom:44px; }
+  .analysis-list{ display:flex; flex-direction:column; gap:0; }
+  .analysis-item{
+    display:grid;
+    grid-template-columns:28px 1fr auto;
+    gap:0 16px;
+    padding:18px 0;
+    border-bottom:1px solid var(--rule);
+    align-items:start;
+  }
+  .analysis-item:last-child{ border-bottom:none; }
+  .analysis-num{
+    font-size:11px; letter-spacing:.1em;
+    color:var(--gold); font-weight:700;
+    padding-top:3px;
+  }
+  .analysis-body{}
+  .analysis-name{
+    font-family:'Playfair Display',serif;
+    font-size:17px; font-weight:500;
+    color:var(--ink); margin-bottom:4px;
+    line-height:1.2;
+  }
+  .analysis-name em{ font-style:italic; color:var(--muted); font-size:14px; }
+  .analysis-why{
+    font-size:13px; color:var(--muted); line-height:1.5;
+  }
+  .analysis-why strong{ color:var(--ink); font-weight:600; }
+  .analysis-ref{
+    font-size:11px; font-weight:700; letter-spacing:.1em;
+    color:var(--paper); background:var(--gold);
+    padding:3px 8px; border-radius:2px;
+    white-space:nowrap; align-self:start; margin-top:2px;
+  }
+  .analysis-ref.is-critical{ background:var(--ink); }
+
+  /* ---- ODX TABLE ---- */
+  .odx-note{
+    background:var(--cream);
+    border:1px solid var(--rule);
+    border-left:3px solid var(--gold);
+    padding:18px 22px;
+    margin-top:8px; margin-bottom:0;
+    border-radius:0 2px 2px 0;
+    font-size:13px; color:var(--muted); line-height:1.55;
+  }
+  .odx-note strong{ color:var(--ink); }
+  .odx-note code{
+    font-family:monospace; font-size:12px;
+    background:var(--gold-pale); padding:1px 5px; border-radius:2px;
+    color:var(--ink);
+  }
+
+  /* ---- CHECKLIST FOOTER ---- */
+  .checklist-footer{
+    margin-top:48px;
+    border-top:2px solid var(--ink);
+    padding-top:32px;
+    display:grid; grid-template-columns:1fr 1fr; gap:32px;
+  }
+  @media(max-width:560px){ .checklist-footer{grid-template-columns:1fr;} }
+  .cf-block__label{
+    font-size:10px; letter-spacing:.28em; text-transform:uppercase;
+    font-weight:700; color:var(--gold); margin-bottom:10px;
+  }
+  .cf-block p{ font-size:13px; color:var(--muted); line-height:1.6; }
+  .cf-block a{ color:var(--ink); border-bottom:1px solid var(--gold); padding-bottom:1px; }
+
+  /* ---- PRINT ---- */
+  @media print{
+    body{background:white;}
+    .page{padding:20px;}
+    .intro-box{background:var(--ink) !important; -webkit-print-color-adjust:exact;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="doc-header">
+    <div class="doc-header__brand">
+      <div class="doc-header__mark">α</div>
+      <span class="doc-header__brand-name">Aletheia</span>
+    </div>
+    <div class="doc-header__eyebrow">Guia de Referência · Medicina Funcional Integrativa</div>
+    <h1 class="doc-header__title">12 Análises que o Teu Médico<br><em>Raramente Pede</em></h1>
+    <p class="doc-header__sub">Os exames convencionais respondem à pergunta "tens doença?" — estes respondem à pergunta "o teu corpo está a funcionar de forma ideal?" São coisas completamente diferentes.</p>
+    <div class="doc-header__meta">
+      <span>Dra. Catarina Veiga</span>
+      <span>Medicina Funcional Integrativa</span>
+      <span>Uso pessoal · não partilhar</span>
+    </div>
+  </header>
+
+  <!-- INTRO -->
+  <div class="intro-box">
+    <p>"Normal" em medicina significa apenas <em>comum</em> — não significa que seja saudável ou ideal para si. Um resultado dentro do intervalo de referência convencional pode ainda estar longe do óptimo bioquímico. É essa diferença que explica porque tens sintomas com exames "bons".</p>
+  </div>
+
+  <!-- GROUP 1: TIRÓIDE -->
+  <div class="analysis-group">
+    <div class="section-title">01 · Tiróide — o que falta pedir</div>
+    <div class="analysis-list">
+
+      <div class="analysis-item">
+        <span class="analysis-num">01</span>
+        <div class="analysis-body">
+          <div class="analysis-name">TSH + T4 livre + T3 livre <em>(painel completo)</em></div>
+          <div class="analysis-why">A maioria dos médicos pede só a TSH. Mas a TSH mede o "pedido" — não a "entrega". Precisas dos três para saber se a conversão T4→T3 está a funcionar. <strong>T3 livre é a hormona activa que entra nas células.</strong></div>
+          <div class="odx-note" style="margin-top:10px;">
+            <strong>Referência convencional vs. óptimo funcional (ODX):</strong><br>
+            TSH: convencional 0,4–4,0 mUI/L · ODX <code>1,0–2,0 mUI/L</code><br>
+            T3 livre: ODX <code>3,2–4,4 pg/mL</code> (muitas mulheres com sintomas têm T3 &lt; 3,0)
+          </div>
+        </div>
+        <span class="analysis-ref is-critical">Crítico</span>
+      </div>
+
+      <div class="analysis-item">
+        <span class="analysis-num">02</span>
+        <div class="analysis-body">
+          <div class="analysis-name">Anticorpos tiroideus <em>(Anti-TPO + Anti-TG)</em></div>
+          <div class="analysis-why">Hashimoto pode cursar com TSH "normal" durante anos antes de alterar os valores. <strong>Os anticorpos são o sinal precoce de ataque autoimune à tiróide.</strong> Fadiga crónica, ganho de peso e névoa mental com TSH normal = pede anticorpos.</div>
+        </div>
+        <span class="analysis-ref">Importante</span>
+      </div>
+
+      <div class="analysis-item">
+        <span class="analysis-num">03</span>
+        <div class="analysis-body">
+          <div class="analysis-name">Reverse T3 <em>(rT3)</em></div>
+          <div class="analysis-why">Em stress crónico, o corpo converte T4 em rT3 (forma inactiva) em vez de T3 activa — é um mecanismo de poupança de energia. <strong>Alta rT3 = hipotiroidismo funcional com TSH normal.</strong> Explica fadiga intensa que não melhora com tratamento standard.</div>
+        </div>
+        <span class="analysis-ref">Avançado</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GROUP 2: FERRO -->
+  <div class="analysis-group">
+    <div class="section-title">02 · Ferro — muito além da hemoglobina</div>
+    <div class="analysis-list">
+
+      <div class="analysis-item">
+        <span class="analysis-num">04</span>
+        <div class="analysis-body">
+          <div class="analysis-name">Ferritina <em>(com interpretação funcional)</em></div>
+          <div class="analysis-why">Ferritina "normal" de laboratório começa nos 10–15 ng/mL. <strong>ODX para mulheres sintomáticas: 60–90 ng/mL.</strong> Com ferritina &lt; 30: queda de cabelo, fadiga, pernas inquietas, intolerância ao frio — mesmo com hemoglobina normal.</div>
+          <div class="odx-note" style="margin-top:10px;">
+            <strong>Sinal de alerta:</strong> ferritina persistentemente baixa (&lt;30) que não sobe com suplementação por &gt;3 meses = investigar causa estrutural (miomas, pólipos, endometriose).
+          </div>
+        </div>
+        <span class="analysis-ref is-critical">Crítico</span>
+      </div>
+
+      <div class="analysis-item">
+        <span class="analysis-num">05</span>
+        <div class="analysis-body">
+          <div class="analysis-name">Saturação de transferrina + TIBC</div>
+          <div class="analysis-why">Distingue deficiência de ferro de inflamação crónica (a inflamação baixa a ferritina sérica mas não é uma deficiência real). <strong>Essencial para não suplementar ferro em excesso.</strong></div>
+        </div>
+        <span class="analysis-ref">Importante</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GROUP 3: METABOLISMO / INSULINA -->
+  <div class="analysis-group">
+    <div class="section-title">03 · Metabolismo &amp; Insulina</div>
+    <div class="analysis-list">
+
+      <div class="analysis-item">
+        <span class="analysis-num">06</span>
+        <div class="analysis-body">
+          <div class="analysis-name">Insulina em jejum <em>(não só glicemia)</em></div>
+          <div class="analysis-why">Glicemia em jejum pode ser normal durante anos enquanto a insulina já está elevada. <strong>Hiperinsulinemia = resistência à insulina silenciosa.</strong> Barriga abdominal que não sai com dieta, fadiga pós-prandial, desejos intensos de açúcar às 15h.</div>
+          <div class="odx-note" style="margin-top:10px;">
+            ODX insulina em jejum: <code>2–6 µUI/mL</code> (convencional aceita até 25 — demasiado lato)
+          </div>
+        </div>
+        <span class="analysis-ref is-critical">Crítico</span>
+      </div>
+
+      <div class="analysis-item">
+        <span class="analysis-num">07</span>
+        <div class="analysis-body">
+          <div class="analysis-name">HOMA-IR <em>(calculado)</em></div>
+          <div class="analysis-why">Índice calculado a partir de glicemia + insulina em jejum. <strong>O marcador mais precoce de resistência à insulina</strong> — detecta o problema 10 anos antes da pré-diabetes aparecer nos exames convencionais. ODX: &lt; 1,5.</div>
+        </div>
+        <span class="analysis-ref">Importante</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GROUP 4: INFLAMAÇÃO / NUTRIÇÃO -->
+  <div class="analysis-group">
+    <div class="section-title">04 · Inflamação &amp; Estado Nutricional</div>
+    <div class="analysis-list">
+
+      <div class="analysis-item">
+        <span class="analysis-num">08</span>
+        <div class="analysis-body">
+          <div class="analysis-name">PCR-us <em>(proteína C reactiva ultra-sensível)</em></div>
+          <div class="analysis-why">A PCR convencional deteta inflamação aguda (infecção, trauma). A PCR-us detecta <strong>inflamação crónica de baixo grau</strong> — o tipo silencioso que accelera envelhecimento, perturba hormonas e causa névoa mental. ODX: &lt; 0,5 mg/L.</div>
+        </div>
+        <span class="analysis-ref">Importante</span>
+      </div>
+
+      <div class="analysis-item">
+        <span class="analysis-num">09</span>
+        <div class="analysis-body">
+          <div class="analysis-name">Vitamina D <em>(25-OH-D3)</em></div>
+          <div class="analysis-why">Insuficiência de vitamina D é epidémica em Portugal (especialmente em mulheres que trabalham em escritório). <strong>ODX: 60–80 ng/mL.</strong> Convencional aceita valores &gt; 20 como "suficiente" — a níveis 20–40 já há impacto imunológico, hormonal e cognitivo.</div>
+        </div>
+        <span class="analysis-ref is-critical">Crítico</span>
+      </div>
+
+      <div class="analysis-item">
+        <span class="analysis-num">10</span>
+        <div class="analysis-body">
+          <div class="analysis-name">Magnésio eritrocitário <em>(intracelular)</em></div>
+          <div class="analysis-why">O magnésio sérico (o que pedem normalmente) está estável até depleção grave — <strong>o intracelular mostra o estado real.</strong> Magnésio baixo = ansiedade, insónia, cãibras, palpitações, tensão muscular crónica, enxaquecas.</div>
+        </div>
+        <span class="analysis-ref">Avançado</span>
+      </div>
+
+      <div class="analysis-item">
+        <span class="analysis-num">11</span>
+        <div class="analysis-body">
+          <div class="analysis-name">Zinco + Cobre <em>(rácio)</em></div>
+          <div class="analysis-why">Zinco é cofactor essencial da conversão T4→T3 e da imunidade. Excesso de cobre (comum em mulheres com DIU de cobre ou exposição ambiental) antagoniza o zinco. <strong>O rácio Zn/Cu importa mais do que os valores isolados.</strong></div>
+        </div>
+        <span class="analysis-ref">Avançado</span>
+      </div>
+
+      <div class="analysis-item">
+        <span class="analysis-num">12</span>
+        <div class="analysis-body">
+          <div class="analysis-name">Homocisteína</div>
+          <div class="analysis-why">Marcador de risco cardiovascular e de eficiência do ciclo de metilação. <strong>Homocisteína elevada = deficiência de B12, B6 ou folato funcional</strong>, mesmo com valores séricos "normais". Associada a fadiga, névoa mental, humor deprimido. ODX: &lt; 7 µmol/L.</div>
+        </div>
+        <span class="analysis-ref">Importante</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="checklist-footer">
+    <div class="cf-block">
+      <div class="cf-block__label">Como usar este guia</div>
+      <p>Leva esta lista à tua próxima consulta. Podes pedir ao teu médico de família — alguns estarão disponíveis; outros podes pedir em laboratório privado por iniciativa própria. Os valores ODX são interpretados em contexto clínico — não autodiagnostiques.</p>
+    </div>
+    <div class="cf-block">
+      <div class="cf-block__label">Próximo passo</div>
+      <p>Se tiveres resultados e quiseres interpretação funcional, o Programa Aletheia inclui análise completa do teu perfil bioquímico com protocolo individualizado.</p>
+      <p style="margin-top:10px;"><a href="https://catarina1979.github.io/aletheia-health-program/">Ver o programa →</a></p>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

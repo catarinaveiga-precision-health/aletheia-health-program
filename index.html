@@ -74,8 +74,51 @@
   /* NAV                  */
   /* ==================== */
   /* ---- Header: transparent over hero, solid on scroll ---- */
+  /* ==================== */
+  /* ANNOUNCE BAR         */
+  /* ==================== */
+  .announce-bar{
+    position:fixed; top:0; left:0; right:0; z-index:101;
+    background:var(--ink);
+    color:var(--paper);
+    padding:9px 24px;
+    display:flex; align-items:center; justify-content:center; gap:18px;
+    font-family:'Open Sans', sans-serif;
+    font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+    font-weight:600;
+    transition:transform .4s cubic-bezier(0.22,1,0.36,1);
+  }
+  .announce-bar.is-hidden{
+    transform:translateY(-100%);
+  }
+  .announce-bar__dot{
+    width:6px; height:6px; border-radius:50%; background:var(--gold);
+    flex-shrink:0; animation:pulseDot 2.4s ease-in-out infinite;
+  }
+  @keyframes pulseDot{
+    0%,100%{opacity:1; transform:scale(1);}
+    50%{opacity:.5; transform:scale(.7);}
+  }
+  .announce-bar__text{ color:rgba(250,248,244,.85); }
+  .announce-bar__link{
+    color:var(--gold-soft);
+    border-bottom:1px solid rgba(213,190,153,.4);
+    padding-bottom:1px;
+    transition:color .2s ease, border-color .2s ease;
+    white-space:nowrap;
+  }
+  .announce-bar__link:hover{ color:var(--gold); border-color:var(--gold); }
+  .announce-bar__close{
+    position:absolute; right:18px;
+    background:none; border:none; cursor:pointer;
+    color:rgba(250,248,244,.4); font-size:16px; line-height:1;
+    transition:color .2s ease;
+    padding:4px;
+  }
+  .announce-bar__close:hover{ color:var(--paper); }
+
   .nav{
-    position:fixed; top:0; left:0; right:0; z-index:100;
+    position:fixed; top:36px; left:0; right:0; z-index:100;
     padding:22px 40px;
     display:flex; align-items:center; justify-content:space-between;
     background:transparent;
@@ -86,15 +129,17 @@
                backdrop-filter .35s ease,
                border-color .35s ease,
                padding .35s ease,
+               top .4s cubic-bezier(0.22,1,0.36,1),
                color .35s ease;
     color:var(--paper);
   }
+  .nav.bar-hidden{ top:0; }
   .nav.is-solid{
-    background:rgba(250,248,244,.92);
-    backdrop-filter:blur(18px) saturate(180%);
-    -webkit-backdrop-filter:blur(18px) saturate(180%);
+    background:rgba(250,248,244,.94);
+    backdrop-filter:blur(20px) saturate(200%);
+    -webkit-backdrop-filter:blur(20px) saturate(200%);
     border-bottom-color:rgba(199,187,160,.3);
-    padding:14px 40px;
+    padding:12px 40px;
     color:var(--ink);
   }
 
@@ -204,9 +249,80 @@
     border-color:var(--ink);
     color:var(--paper);
   }
+  /* Mobile hamburger */
+  .nav-hamburger{
+    display:none;
+    flex-direction:column; gap:5px;
+    width:32px; height:32px;
+    background:none; border:none; cursor:pointer;
+    padding:6px 4px;
+    color:inherit;
+    align-items:center; justify-content:center;
+  }
+  .nav-hamburger span{
+    display:block; width:22px; height:1.5px;
+    background:currentColor;
+    transition:transform .35s cubic-bezier(0.22,1,0.36,1),
+               opacity .25s ease,
+               width .3s ease;
+    transform-origin:center;
+  }
+  .nav-hamburger.is-open span:nth-child(1){ transform:translateY(6.5px) rotate(45deg); }
+  .nav-hamburger.is-open span:nth-child(2){ opacity:0; width:0; }
+  .nav-hamburger.is-open span:nth-child(3){ transform:translateY(-6.5px) rotate(-45deg); }
+
+  /* Mobile drawer */
+  .nav-drawer{
+    position:fixed; top:0; left:0; right:0; bottom:0; z-index:99;
+    background:var(--paper);
+    display:flex; flex-direction:column;
+    padding:100px 32px 48px;
+    transform:translateX(100%);
+    transition:transform .45s cubic-bezier(0.22,1,0.36,1);
+    visibility:hidden;
+  }
+  .nav-drawer.is-open{ transform:translateX(0); visibility:visible; }
+  .nav-drawer__links{
+    display:flex; flex-direction:column; gap:0;
+    border-top:1px solid var(--rule);
+  }
+  .nav-drawer__links a{
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    font-size:32px; font-weight:500;
+    color:var(--ink);
+    padding:18px 0;
+    border-bottom:1px solid var(--rule);
+    display:flex; align-items:center; justify-content:space-between;
+    transition:color .2s ease;
+  }
+  .nav-drawer__links a::after{
+    content:"→"; font-style:normal; font-size:20px;
+    color:var(--gold); opacity:0;
+    transform:translateX(-8px);
+    transition:opacity .2s ease, transform .3s ease;
+  }
+  .nav-drawer__links a:hover{ color:var(--gold); }
+  .nav-drawer__links a:hover::after{ opacity:1; transform:translateX(0); }
+  .nav-drawer__cta{
+    margin-top:32px;
+    padding:18px 32px;
+    background:var(--ink); color:var(--paper);
+    text-align:center;
+    font-family:'Open Sans', sans-serif;
+    font-size:11px; letter-spacing:.26em; text-transform:uppercase;
+    font-weight:600; border-radius:2px;
+    transition:background .25s ease;
+  }
+  .nav-drawer__cta:hover{ background:var(--gold); color:var(--paper); }
+
   @media (max-width:768px){
-    .nav{padding:16px 22px;}
-    .nav-links{display:none;}
+    .announce-bar{ padding:8px 36px 8px 16px; font-size:10px; }
+    .nav{ padding:14px 22px; top:34px; }
+    .nav.bar-hidden{ top:0; }
+    .nav-links{ display:none; }
+    .nav-cta{ display:none; }
+    .nav-hamburger{ display:flex; }
   }
 
   /* ==================== */
@@ -2551,8 +2667,16 @@
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
+<!-- ============ ANNOUNCE BAR ============ -->
+<div class="announce-bar" id="announceBar">
+  <span class="announce-bar__dot" aria-hidden="true"></span>
+  <span class="announce-bar__text">Próxima turma · vagas limitadas</span>
+  <a href="#cta" class="announce-bar__link">Ver disponibilidade →</a>
+  <button class="announce-bar__close" id="announceClose" aria-label="Fechar">×</button>
+</div>
+
 <!-- ============ NAV ============ -->
-<nav class="nav">
+<nav class="nav" id="mainNav">
   <a href="#" class="nav-brand">
     <span class="nav-brand__mark" aria-hidden="true"><span>α</span></span>
     <span class="nav-brand__text">Aletheia</span>
@@ -2564,7 +2688,21 @@
     <a href="#incluido">O que inclui</a>
   </div>
   <a href="#cta" class="nav-cta">Candidatar</a>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- ============ MOBILE DRAWER ============ -->
+<div class="nav-drawer" id="navDrawer" aria-hidden="true">
+  <nav class="nav-drawer__links">
+    <a href="#programa" class="drawer-link">Programa</a>
+    <a href="#metodo" class="drawer-link">Método</a>
+    <a href="#caso" class="drawer-link">Caso real</a>
+    <a href="#incluido" class="drawer-link">O que inclui</a>
+  </nav>
+  <a href="#cta" class="nav-drawer__cta drawer-link">Candidatar ao programa</a>
+</div>
 
 <!-- ============ HERO · Lamp ============ -->
 <section class="lamp-hero" id="hero-lamp">
@@ -3209,7 +3347,49 @@
     const bar = document.getElementById('scrollProgress');
     const nav = document.querySelector('.nav');
     const hero = document.querySelector('.lamp-hero');
+    const announceBar = document.getElementById('announceBar');
+    const announceClose = document.getElementById('announceClose');
+    const navHamburger = document.getElementById('navHamburger');
+    const navDrawer = document.getElementById('navDrawer');
+    const drawerLinks = document.querySelectorAll('.drawer-link');
     let ticking = false;
+    let barVisible = true;
+
+    // Announce bar close
+    if (announceClose) {
+      announceClose.addEventListener('click', () => {
+        announceBar.classList.add('is-hidden');
+        nav.classList.add('bar-hidden');
+        barVisible = false;
+        sessionStorage.setItem('announceClosed', '1');
+      });
+    }
+    if (sessionStorage.getItem('announceClosed')) {
+      announceBar && announceBar.classList.add('is-hidden');
+      nav && nav.classList.add('bar-hidden');
+      barVisible = false;
+    }
+
+    // Hamburger toggle
+    if (navHamburger && navDrawer) {
+      navHamburger.addEventListener('click', () => {
+        const open = navDrawer.classList.toggle('is-open');
+        navHamburger.classList.toggle('is-open', open);
+        navHamburger.setAttribute('aria-expanded', open);
+        navDrawer.setAttribute('aria-hidden', !open);
+        document.body.style.overflow = open ? 'hidden' : '';
+      });
+      drawerLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          navDrawer.classList.remove('is-open');
+          navHamburger.classList.remove('is-open');
+          navHamburger.setAttribute('aria-expanded', false);
+          navDrawer.setAttribute('aria-hidden', true);
+          document.body.style.overflow = '';
+        });
+      });
+    }
+
     // Threshold: trigger solid state when user scrolls past ~75% of hero viewport
     const getThreshold = () => hero ? hero.offsetHeight * 0.75 : 600;
 
