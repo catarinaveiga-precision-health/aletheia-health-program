@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aletheia · Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;500&family=Cormorant+Garamond:ital,wght@1,300&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #0d1410;
+  --bg-2:      #111a15;
+  --surface:   #1a251f;
+  --surface-2: #202c26;
+  --b1: rgba(213,190,153,0.07);
+  --b2: rgba(213,190,153,0.12);
+  --gold:      #c6a573;
+  --gold-soft: #d5be99;
+  --gold-dim:  rgba(198,165,115,0.45);
+  --gold-faint:rgba(198,165,115,0.08);
+  --t1: #e8e4dc;
+  --t2: rgba(232,228,220,0.55);
+  --t3: rgba(232,228,220,0.28);
+  --t4: rgba(232,228,220,0.15);
+  --ok:  rgba(74,140,92,0.18);
+  --ok-t:#6abf80;
+  --warn:rgba(198,148,58,0.18);
+  --warn-t:#d4a84b;
+  --err: rgba(193,80,80,0.18);
+  --err-t:#d47070;
+}
+
+html, body { height: 100%; background: var(--bg); color: var(--t1); font-family: 'Raleway', sans-serif; font-weight: 300; font-size: 13px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+
+/* ─── SHELL ─── */
+.shell { display: flex; height: 100vh; overflow: hidden; }
+
+/* ─── SIDEBAR ─── */
+.sidebar {
+  width: 212px; flex-shrink: 0;
+  background: var(--bg-2);
+  border-right: 1px solid var(--b1);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.sidebar-head {
+  padding: 28px 22px 24px;
+  border-bottom: 1px solid var(--b1);
+  display: flex; align-items: center; gap: 11px;
+}
+.sidebar-mark {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--gold); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 15px; color: var(--bg); font-weight: 300;
+}
+.sidebar-name {
+  font-size: 13px; font-weight: 300; letter-spacing: 0.08em; color: var(--t1);
+}
+.sidebar-name small {
+  display: block; font-size: 9px; letter-spacing: 0.2em; color: var(--t3);
+  text-transform: uppercase; margin-top: 1px; font-weight: 300;
+}
+
+.sidebar-nav { flex: 1; padding: 20px 0; overflow-y: auto; }
+.nav-group { margin-bottom: 28px; }
+.nav-group-label {
+  padding: 0 22px 7px;
+  font-size: 8px; letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--t4); font-weight: 400;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 22px; cursor: pointer;
+  font-size: 11px; font-weight: 300; letter-spacing: 0.04em; color: var(--t3);
+  transition: color 0.2s, background 0.2s;
+  position: relative;
+}
+.nav-item:hover { color: var(--t2); background: var(--gold-faint); }
+.nav-item.active { color: var(--gold); background: var(--gold-faint); }
+.nav-item.active::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 1px; background: var(--gold); opacity: 0.7;
+}
+.nav-item__icon { font-size: 12px; width: 14px; text-align: center; flex-shrink: 0; opacity: 0.7; }
+.nav-pill {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; font-weight: 300;
+  padding: 2px 7px; border-radius: 9999px;
+}
+.nav-pill.red { background: var(--err); color: var(--err-t); }
+.nav-pill.amber { background: var(--warn); color: var(--warn-t); }
+
+.sidebar-foot {
+  padding: 16px 22px; border-top: 1px solid var(--b1);
+  display: flex; align-items: center; gap: 10px;
+}
+.foot-av {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--surface-2); border: 1px solid var(--b2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 500; color: var(--gold-dim); flex-shrink: 0;
+}
+.foot-name { font-size: 11px; font-weight: 400; color: var(--t1); }
+.foot-role { font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--t4); margin-top: 1px; }
+
+/* ─── MAIN ─── */
+.main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+/* ─── TOPBAR ─── */
+.topbar {
+  height: 54px; flex-shrink: 0;
+  background: var(--bg-2); border-bottom: 1px solid var(--b1);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 28px;
+}
+.topbar-title {
+  font-size: 12px; font-weight: 300; letter-spacing: 0.08em;
+  color: var(--t2);
+}
+.topbar-title strong { color: var(--t1); font-weight: 400; }
+.topbar-right { display: flex; align-items: center; gap: 12px; }
+
+.search {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--surface); border: 1px solid var(--b1);
+  border-radius: 6px; padding: 7px 12px; width: 188px;
+  transition: border-color 0.2s;
+}
+.search:focus-within { border-color: var(--b2); }
+.search-icon { font-size: 11px; color: var(--t4); flex-shrink: 0; }
+.search input {
+  background: none; border: none; outline: none;
+  font-family: 'Raleway', sans-serif; font-size: 11px; font-weight: 300;
+  color: var(--t1); width: 100%;
+}
+.search input::placeholder { color: var(--t4); }
+
+.icon-btn {
+  width: 30px; height: 30px; border-radius: 6px;
+  background: var(--surface); border: 1px solid var(--b1);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 13px; color: var(--t3);
+  transition: all 0.2s; position: relative;
+}
+.icon-btn:hover { border-color: var(--b2); color: var(--t2); }
+.icon-btn-dot {
+  position: absolute; top: 5px; right: 5px;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--err-t); border: 1.5px solid var(--bg-2);
+}
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 8px 16px; border-radius: 4px;
+  background: var(--gold); color: var(--bg);
+  font-family: 'Raleway', sans-serif; font-size: 10px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  border: none; cursor: pointer; transition: background 0.2s;
+  white-space: nowrap;
+}
+.btn-primary:hover { background: var(--gold-soft); }
+
+/* ─── CONTENT ─── */
+.content { flex: 1; overflow-y: auto; padding: 28px; }
+.content::-webkit-scrollbar { width: 3px; }
+.content::-webkit-scrollbar-thumb { background: var(--b2); border-radius: 9999px; }
+
+/* ─── KPI ROW ─── */
+.kpi-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-bottom: 24px; }
+.kpi {
+  background: var(--surface); border: 1px solid var(--b1); border-radius: 10px;
+  padding: 20px 20px 18px;
+}
+.kpi-label {
+  font-size: 8px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--t4); font-weight: 400; margin-bottom: 14px;
+}
+.kpi-value {
+  font-size: 28px; font-weight: 200; color: var(--t1);
+  letter-spacing: -0.02em; line-height: 1; margin-bottom: 5px;
+}
+.kpi-sub { font-size: 10px; font-weight: 300; color: var(--t3); margin-bottom: 12px; }
+.kpi-delta {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 9px; font-weight: 400; letter-spacing: 0.04em;
+  padding: 3px 9px; border-radius: 9999px;
+}
+.kpi-delta.up   { background: var(--ok);   color: var(--ok-t); }
+.kpi-delta.warn { background: var(--warn); color: var(--warn-t); }
+.kpi-delta.err  { background: var(--err);  color: var(--err-t); }
+
+/* ─── TWO-COL ─── */
+.two-col { display: grid; grid-template-columns: 1fr 316px; gap: 16px; margin-bottom: 16px; }
+
+/* ─── CARD ─── */
+.card { background: var(--surface); border: 1px solid var(--b1); border-radius: 10px; overflow: hidden; }
+.card-head {
+  padding: 15px 20px; border-bottom: 1px solid var(--b1);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.card-title {
+  font-size: 9px; font-weight: 400; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--t2);
+  display: flex; align-items: center; gap: 7px;
+}
+.card-title-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); flex-shrink: 0; opacity: 0.6; }
+.card-link { font-size: 10px; font-weight: 300; color: var(--gold-dim); cursor: pointer; transition: color 0.2s; letter-spacing: 0.04em; }
+.card-link:hover { color: var(--gold); }
+
+/* ─── CLIENT LIST ─── */
+.client-list { padding: 0; }
+.client-row {
+  display: grid; grid-template-columns: 1fr 80px 90px 110px 96px 56px;
+  align-items: center; gap: 0;
+  padding: 0 20px; min-height: 56px;
+  border-bottom: 1px solid var(--b1);
+  transition: background 0.15s;
+}
+.client-row:last-child { border-bottom: none; }
+.client-row:hover { background: var(--gold-faint); }
+.client-row.header {
+  min-height: 36px;
+  background: rgba(0,0,0,0.15);
+  border-bottom: 1px solid var(--b1);
+}
+.client-row.header:hover { background: rgba(0,0,0,0.15); }
+.col-label {
+  font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--t4); font-weight: 400;
+}
+
+.client-av {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--surface-2); border: 1px solid var(--b2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 500; color: var(--gold-dim); flex-shrink: 0;
+}
+.client-info { display: flex; align-items: center; gap: 10px; }
+.client-name { font-size: 12px; font-weight: 400; color: var(--t1); }
+.client-email { font-size: 9px; color: var(--t3); font-weight: 300; margin-top: 1px; }
+
+.tag {
+  display: inline-block; padding: 2px 9px; border-radius: 9999px;
+  font-size: 8px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase;
+  border: 1px solid var(--b2); color: var(--t4);
+}
+.tag.gold { border-color: rgba(198,165,115,0.25); color: var(--gold-dim); }
+
+.prog-wrap { width: 72px; height: 3px; background: var(--surface-2); border-radius: 9999px; overflow: hidden; }
+.prog-fill { height: 100%; border-radius: 9999px; background: var(--gold); opacity: 0.55; }
+
+.mono { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 300; color: var(--t3); }
+
+.status {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 8px; border-radius: 9999px;
+  font-size: 8px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.status-dot { width: 4px; height: 4px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+.status.active  { background: var(--ok);   color: var(--ok-t); }
+.status.warn    { background: var(--warn); color: var(--warn-t); }
+.status.new     { background: rgba(100,130,255,0.12); color: #8899ff; }
+.status.paused  { background: rgba(232,228,220,0.05); color: var(--t4); }
+
+.row-actions { display: flex; align-items: center; gap: 4px; justify-content: flex-end; }
+.act-btn {
+  width: 24px; height: 24px; border-radius: 4px;
+  background: transparent; border: 1px solid var(--b1);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 10px; color: var(--t4);
+  transition: all 0.15s;
+}
+.act-btn:hover { border-color: var(--b2); color: var(--gold-dim); }
+
+/* ─── RIGHT COLUMN ─── */
+.right-col { display: flex; flex-direction: column; gap: 14px; }
+
+/* ─── ALERTS ─── */
+.alert-list { padding: 0; }
+.alert-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px 20px; border-bottom: 1px solid var(--b1);
+}
+.alert-item:last-child { border-bottom: none; }
+.alert-icon {
+  width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; margin-top: 1px;
+}
+.alert-icon.warn  { background: var(--warn); }
+.alert-icon.err   { background: var(--err); }
+.alert-icon.ok    { background: var(--ok); }
+.alert-icon.blue  { background: rgba(100,130,255,0.12); }
+.alert-text { font-size: 11px; font-weight: 300; color: var(--t2); line-height: 1.5; }
+.alert-text strong { color: var(--t1); font-weight: 400; }
+.alert-time { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--t4); margin-top: 3px; }
+
+/* ─── SESSIONS ─── */
+.session-list { padding: 0; }
+.session-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 20px; border-bottom: 1px solid var(--b1);
+}
+.session-item:last-child { border-bottom: none; }
+.session-time { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 300; color: var(--gold-dim); width: 38px; flex-shrink: 0; text-align: right; }
+.session-tick { width: 1px; height: 28px; background: var(--b2); flex-shrink: 0; }
+.session-tick.live { background: var(--gold); opacity: 0.4; }
+.session-name { font-size: 11px; font-weight: 400; color: var(--t1); }
+.session-type { font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--t4); margin-top: 2px; }
+
+/* ─── BOTTOM ROW ─── */
+.three-col { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+
+/* ─── REVENUE ─── */
+.rev-body { padding: 18px 20px; }
+.rev-val { font-size: 24px; font-weight: 200; color: var(--t1); letter-spacing: -0.02em; }
+.rev-sub { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--t4); margin-top: 3px; margin-bottom: 18px; font-weight: 300; }
+.rev-chart { display: flex; align-items: flex-end; gap: 5px; height: 52px; }
+.rev-bar-w { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.rev-bar { width: 100%; border-radius: 2px 2px 0 0; background: rgba(198,165,115,0.2); transition: background 0.2s; cursor: pointer; }
+.rev-bar:hover { background: rgba(198,165,115,0.4); }
+.rev-bar.now { background: rgba(198,165,115,0.65); }
+.rev-mo { font-size: 7px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--t4); }
+
+/* ─── PHASE ─── */
+.phase-list { padding: 0; }
+.phase-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 20px; border-bottom: 1px solid var(--b1);
+}
+.phase-item:last-child { border-bottom: none; }
+.phase-num {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--gold-faint); border: 1px solid rgba(198,165,115,0.18);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 8px; color: var(--gold-dim); flex-shrink: 0;
+}
+.phase-label { font-size: 11px; font-weight: 300; color: var(--t2); flex: 1; }
+.phase-n { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--t4); }
+
+/* ─── CALENDAR ─── */
+.cal-body { padding: 14px 16px; }
+.cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 2px; }
+.cal-dh {
+  text-align: center; font-size: 7px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--t4); padding: 4px 0; font-weight: 400;
+}
+.cal-d {
+  text-align: center; padding: 5px 3px; border-radius: 3px;
+  font-size: 9px; font-weight: 300; color: var(--t3); cursor: pointer;
+  transition: background 0.15s; position: relative; font-family: 'JetBrains Mono', monospace;
+}
+.cal-d:hover { background: var(--surface-2); }
+.cal-d.today { background: var(--gold-faint); color: var(--gold); }
+.cal-d.has::after {
+  content: ''; position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);
+  width: 3px; height: 3px; border-radius: 50%; background: var(--gold); opacity: 0.5;
+}
+.cal-d.empty { opacity: 0.2; }
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+  <div class="sidebar-head">
+    <div class="sidebar-mark">α</div>
+    <div class="sidebar-name">
+      Aletheia
+      <small>Dashboard</small>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-group">
+      <div class="nav-group-label">Principal</div>
+      <div class="nav-item active"><span class="nav-item__icon">▪</span>Visão geral</div>
+      <div class="nav-item"><span class="nav-item__icon">○</span>Clientes <span class="nav-pill amber">3</span></div>
+      <div class="nav-item"><span class="nav-item__icon">▦</span>Calendário</div>
+      <div class="nav-item"><span class="nav-item__icon">↗</span>Análises</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Clínico</div>
+      <div class="nav-item"><span class="nav-item__icon">≡</span>Protocolos</div>
+      <div class="nav-item"><span class="nav-item__icon">◻</span>Planos alimentares</div>
+      <div class="nav-item"><span class="nav-item__icon">✦</span>Suplementação</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Negócio</div>
+      <div class="nav-item"><span class="nav-item__icon">◈</span>Financeiro</div>
+      <div class="nav-item"><span class="nav-item__icon">◉</span>Alertas <span class="nav-pill red">5</span></div>
+      <div class="nav-item"><span class="nav-item__icon">⊙</span>Definições</div>
+    </div>
+  </nav>
+
+  <div class="sidebar-foot">
+    <div class="foot-av">CV</div>
+    <div>
+      <div class="foot-name">Catarina Veiga</div>
+      <div class="foot-role">Médica · Admin</div>
+    </div>
+  </div>
+</aside>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-title"><strong>Visão geral</strong> · Abril 2026</div>
+    <div class="topbar-right">
+      <div class="search">
+        <span class="search-icon">⊕</span>
+        <input type="text" placeholder="Pesquisar cliente…">
+      </div>
+      <div class="icon-btn">🔔<span class="icon-btn-dot"></span></div>
+      <button class="btn-primary">+ Novo cliente</button>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- KPIs -->
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="kpi-label">Clientes activos</div>
+        <div class="kpi-value">24</div>
+        <div class="kpi-sub">de 30 lugares disponíveis</div>
+        <span class="kpi-delta up">↑ +3 este mês</span>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Receita mensal</div>
+        <div class="kpi-value">€4 776</div>
+        <div class="kpi-sub">24 × €199 / mês</div>
+        <span class="kpi-delta up">↑ +€597 vs. março</span>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Taxa de retenção</div>
+        <div class="kpi-value">87%</div>
+        <div class="kpi-sub">últimos 6 meses</div>
+        <span class="kpi-delta warn">→ estável</span>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Alertas pendentes</div>
+        <div class="kpi-value">5</div>
+        <div class="kpi-sub">renovações + análises</div>
+        <span class="kpi-delta err">↑ requer atenção</span>
+      </div>
+    </div>
+
+    <!-- TWO-COL -->
+    <div class="two-col">
+
+      <!-- CLIENT TABLE -->
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title"><span class="card-title-dot"></span>Clientes activos</span>
+          <span class="card-link">Ver todos →</span>
+        </div>
+        <div class="client-list">
+          <!-- header -->
+          <div class="client-row header">
+            <div class="col-label">Cliente</div>
+            <div class="col-label">Fase</div>
+            <div class="col-label">Progresso</div>
+            <div class="col-label">Próxima sessão</div>
+            <div class="col-label">Estado</div>
+            <div></div>
+          </div>
+          <!-- rows -->
+          <div class="client-row">
+            <div class="client-info">
+              <div class="client-av">JC</div>
+              <div><div class="client-name">Joana Carvalho</div><div class="client-email">joana@email.com</div></div>
+            </div>
+            <div><span class="tag gold">Fase 2</span></div>
+            <div><div class="prog-wrap"><div class="prog-fill" style="width:65%"></div></div></div>
+            <div class="mono">Amanhã, 10h</div>
+            <div><span class="status active"><span class="status-dot"></span>Activa</span></div>
+            <div class="row-actions"><div class="act-btn">↗</div><div class="act-btn">✉</div></div>
+          </div>
+          <div class="client-row">
+            <div class="client-info">
+              <div class="client-av">MS</div>
+              <div><div class="client-name">Maria Santos</div><div class="client-email">maria.s@email.com</div></div>
+            </div>
+            <div><span class="tag gold">Fase 1</span></div>
+            <div><div class="prog-wrap"><div class="prog-fill" style="width:30%"></div></div></div>
+            <div class="mono">24 Abr, 14h</div>
+            <div><span class="status warn"><span class="status-dot"></span>Análise</span></div>
+            <div class="row-actions"><div class="act-btn">↗</div><div class="act-btn">✉</div></div>
+          </div>
+          <div class="client-row">
+            <div class="client-info">
+              <div class="client-av">AF</div>
+              <div><div class="client-name">Ana Ferreira</div><div class="client-email">ana.f@email.com</div></div>
+            </div>
+            <div><span class="tag gold">Fase 3</span></div>
+            <div><div class="prog-wrap"><div class="prog-fill" style="width:88%"></div></div></div>
+            <div class="mono">26 Abr, 11h</div>
+            <div><span class="status active"><span class="status-dot"></span>Activa</span></div>
+            <div class="row-actions"><div class="act-btn">↗</div><div class="act-btn">✉</div></div>
+          </div>
+          <div class="client-row">
+            <div class="client-info">
+              <div class="client-av">LP</div>
+              <div><div class="client-name">Luísa Pinto</div><div class="client-email">luisa.p@email.com</div></div>
+            </div>
+            <div><span class="tag">Onboarding</span></div>
+            <div><div class="prog-wrap"><div class="prog-fill" style="width:12%"></div></div></div>
+            <div class="mono">A agendar</div>
+            <div><span class="status new"><span class="status-dot"></span>Nova</span></div>
+            <div class="row-actions"><div class="act-btn">↗</div><div class="act-btn">✉</div></div>
+          </div>
+          <div class="client-row">
+            <div class="client-info">
+              <div class="client-av">CR</div>
+              <div><div class="client-name">Clara Rodrigues</div><div class="client-email">clara.r@email.com</div></div>
+            </div>
+            <div><span class="tag gold">Fase 2</span></div>
+            <div><div class="prog-wrap"><div class="prog-fill" style="width:50%"></div></div></div>
+            <div class="mono">Renov. 30 Abr</div>
+            <div><span class="status warn"><span class="status-dot"></span>Renovar</span></div>
+            <div class="row-actions"><div class="act-btn">↗</div><div class="act-btn">✉</div></div>
+          </div>
+          <div class="client-row">
+            <div class="client-info">
+              <div class="client-av">PM</div>
+              <div><div class="client-name">Paula Mendes</div><div class="client-email">paula.m@email.com</div></div>
+            </div>
+            <div><span class="tag">—</span></div>
+            <div><div class="prog-wrap"><div class="prog-fill" style="width:0%"></div></div></div>
+            <div class="mono">—</div>
+            <div><span class="status paused"><span class="status-dot"></span>Pausada</span></div>
+            <div class="row-actions"><div class="act-btn">↗</div><div class="act-btn">✉</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="right-col">
+
+        <!-- ALERTS -->
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title"><span class="card-title-dot" style="background:var(--err-t)"></span>Alertas</span>
+            <span class="card-link">Marcar todos →</span>
+          </div>
+          <div class="alert-list">
+            <div class="alert-item">
+              <div class="alert-icon warn">⚠</div>
+              <div>
+                <div class="alert-text"><strong>Clara Rodrigues</strong> — renovação em 9 dias</div>
+                <div class="alert-time">30 Abr 2026</div>
+              </div>
+            </div>
+            <div class="alert-item">
+              <div class="alert-icon err">⊕</div>
+              <div>
+                <div class="alert-text"><strong>Maria Santos</strong> — ODX não entregue</div>
+                <div class="alert-time">Enviado há 14 dias</div>
+              </div>
+            </div>
+            <div class="alert-item">
+              <div class="alert-icon blue">✦</div>
+              <div>
+                <div class="alert-text"><strong>Luísa Pinto</strong> — formulário incompleto</div>
+                <div class="alert-time">Onboarding em falta</div>
+              </div>
+            </div>
+            <div class="alert-item">
+              <div class="alert-icon ok">↑</div>
+              <div>
+                <div class="alert-text"><strong>Ana Ferreira</strong> — nova análise disponível</div>
+                <div class="alert-time">Hoje, 09:32</div>
+              </div>
+            </div>
+            <div class="alert-item">
+              <div class="alert-icon warn">◉</div>
+              <div>
+                <div class="alert-text"><strong>3 clientes</strong> sem check-in esta semana</div>
+                <div class="alert-time">Semana de 21 Abr</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SESSIONS TODAY -->
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title"><span class="card-title-dot" style="background:#8899ff;opacity:0.8"></span>Sessões hoje</span>
+            <span class="card-link">Calendário →</span>
+          </div>
+          <div class="session-list">
+            <div class="session-item">
+              <div class="session-time">10:00</div>
+              <div class="session-tick live"></div>
+              <div><div class="session-name">Joana Carvalho</div><div class="session-type">Consulta mensal · Video</div></div>
+            </div>
+            <div class="session-item">
+              <div class="session-time">14:30</div>
+              <div class="session-tick"></div>
+              <div><div class="session-name">Sofia Lopes</div><div class="session-type">Revisão ODX · Video</div></div>
+            </div>
+            <div class="session-item">
+              <div class="session-time">16:00</div>
+              <div class="session-tick"></div>
+              <div><div class="session-name">Teresa Maia</div><div class="session-type">Follow-up · Mensagem</div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /two-col -->
+
+    <!-- BOTTOM THREE-COL -->
+    <div class="three-col">
+
+      <!-- REVENUE -->
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title"><span class="card-title-dot"></span>Receita mensal</span>
+        </div>
+        <div class="rev-body">
+          <div class="rev-val">€4 776</div>
+          <div class="rev-sub">Abril 2026 · MRR</div>
+          <div class="rev-chart">
+            <div class="rev-bar-w"><div class="rev-bar" style="height:22px"></div><div class="rev-mo">Out</div></div>
+            <div class="rev-bar-w"><div class="rev-bar" style="height:26px"></div><div class="rev-mo">Nov</div></div>
+            <div class="rev-bar-w"><div class="rev-bar" style="height:30px"></div><div class="rev-mo">Dez</div></div>
+            <div class="rev-bar-w"><div class="rev-bar" style="height:34px"></div><div class="rev-mo">Jan</div></div>
+            <div class="rev-bar-w"><div class="rev-bar" style="height:38px"></div><div class="rev-mo">Fev</div></div>
+            <div class="rev-bar-w"><div class="rev-bar" style="height:42px"></div><div class="rev-mo">Mar</div></div>
+            <div class="rev-bar-w"><div class="rev-bar now" style="height:52px"></div><div class="rev-mo">Abr</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE -->
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title"><span class="card-title-dot"></span>Distribuição por fase</span>
+        </div>
+        <div class="phase-list">
+          <div class="phase-item">
+            <div class="phase-num">0</div>
+            <div class="phase-label">Onboarding</div>
+            <div class="phase-n">3</div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-num">1</div>
+            <div class="phase-label">Intestino e absorção</div>
+            <div class="phase-n">8</div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-num">2</div>
+            <div class="phase-label">Reconstrução adrenal</div>
+            <div class="phase-n">9</div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-num">3</div>
+            <div class="phase-label">Reequilíbrio hormonal</div>
+            <div class="phase-n">4</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CALENDAR -->
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title"><span class="card-title-dot"></span>Abril 2026</span>
+          <span class="card-link">← →</span>
+        </div>
+        <div class="cal-body">
+          <div class="cal-grid">
+            <div class="cal-dh">Seg</div><div class="cal-dh">Ter</div><div class="cal-dh">Qua</div>
+            <div class="cal-dh">Qui</div><div class="cal-dh">Sex</div><div class="cal-dh">Sáb</div><div class="cal-dh">Dom</div>
+            <div class="cal-d empty"></div><div class="cal-d empty"></div>
+            <div class="cal-d">1</div><div class="cal-d has">2</div><div class="cal-d has">3</div>
+            <div class="cal-d">4</div><div class="cal-d">5</div>
+            <div class="cal-d has">7</div><div class="cal-d">8</div><div class="cal-d has">9</div>
+            <div class="cal-d has">10</div><div class="cal-d">11</div><div class="cal-d">12</div><div class="cal-d">13</div>
+            <div class="cal-d">14</div><div class="cal-d">15</div><div class="cal-d has">16</div>
+            <div class="cal-d has">17</div><div class="cal-d">18</div><div class="cal-d">19</div><div class="cal-d">20</div>
+            <div class="cal-d today">21</div><div class="cal-d">22</div>
+            <div class="cal-d has">23</div><div class="cal-d has">24</div><div class="cal-d">25</div>
+            <div class="cal-d has">26</div><div class="cal-d">27</div><div class="cal-d">28</div><div class="cal-d">29</div>
+            <div class="cal-d has">30</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /three-col -->
+
+  </div><!-- /content -->
+</main>
+</div>
+</body>
+</html>
