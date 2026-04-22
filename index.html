@@ -333,10 +333,35 @@ footer{background:var(--footer-bg);padding:72px 0 48px}
   <div class="hero-content">
     <span class="hero-eyebrow">Dra. Catarina Veiga &middot; Medicina Funcional de Precisão</span>
     <span id="hero-wordmark">ALETHEIA</span>
-    <p class="hero-tagline">A verdade que o teu sangue já conhece.</p>
+    <p class="hero-tagline">&ldquo;Os seus exames estão todos bons.&rdquo;<br>Mas você sabe que algo não está.</p>
   </div>
   <div class="hero-cta-wrap">
-    <a href="mailto:info@catarinaveiga.com?subject=Aletheia%20%E2%80%94%20Quero%20fazer%20parte%20do%20programa" class="hero-cta">Conhece o programa &rarr;</a>
+    <a href="#video-intro" class="hero-cta">Ver apresentação &darr;</a>
+  </div>
+</section>
+
+<!-- VIDEO INTRO -->
+<section id="video-intro" style="background:var(--hero-bg);padding:80px 0 100px">
+  <div class="section-inner">
+    <span class="eyebrow eyebrow-light fade-up" style="text-align:center;display:block;margin-bottom:32px">Olá. Eu sou a Catarina.</span>
+    <div class="fade-up" style="max-width:800px;margin:0 auto;position:relative;cursor:pointer" id="video-placeholder" onclick="this.querySelector('.play-btn').style.transform='scale(0.95)'">
+      <div style="position:relative;padding-bottom:56.25%;background:oklch(16% 0.01 90);border-radius:4px;overflow:hidden;border:1px solid rgba(255,255,255,0.07)">
+        <!-- Thumbnail gradient background -->
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 35% 50%, rgba(94,122,108,0.18) 0%, transparent 60%), radial-gradient(ellipse at 75% 30%, rgba(197,164,106,0.12) 0%, transparent 55%);z-index:1"></div>
+        <!-- Waveform decoration -->
+        <svg style="position:absolute;bottom:0;left:0;right:0;width:100%;opacity:0.12;z-index:1" viewBox="0 0 800 80" preserveAspectRatio="none">
+          <polyline points="0,40 40,20 80,55 120,30 160,50 200,25 240,45 280,20 320,50 360,28 400,48 440,18 480,52 520,32 560,46 600,22 640,50 680,30 720,48 760,20 800,40" fill="none" stroke="rgba(197,164,106,0.8)" stroke-width="1.5"/>
+        </svg>
+        <!-- Doctor silhouette / text card -->
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2;padding:40px">
+          <div class="play-btn" style="width:72px;height:72px;border-radius:50%;background:rgba(197,164,106,0.92);display:flex;align-items:center;justify-content:center;margin-bottom:28px;transition:transform .2s ease;box-shadow:0 0 0 12px rgba(197,164,106,0.12)">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="#0E0D0B"/></svg>
+          </div>
+          <p style="font-family:var(--font-serif);font-style:italic;font-weight:300;font-size:clamp(1rem,1.8vw,1.3rem);color:rgba(255,255,255,0.8);text-align:center;max-width:480px;line-height:1.6">&ldquo;Se está a ver este vídeo, é provável que já tenha ouvido esta frase mais do que uma vez: <em style="color:var(--gold-soft)">&lsquo;Os seus exames estão todos bons.&rsquo;</em> Mas você sabe que algo não está.&rdquo;</p>
+        </div>
+      </div>
+      <p style="font-family:var(--font-sans);font-size:.75rem;font-weight:400;color:rgba(255,255,255,0.3);letter-spacing:.12em;text-transform:uppercase;text-align:center;margin-top:16px">Dra. Catarina Veiga &middot; Apresentação do programa &middot; 4 min</p>
+    </div>
   </div>
 </section>
 
@@ -363,40 +388,28 @@ footer{background:var(--footer-bg);padding:72px 0 48px}
 <!-- 02 PROBLEMA -->
 <section id="problema">
   <div class="section-inner">
-    <span class="eyebrow eyebrow-light fade-up">As palavras em voz baixa</span>
-    <h2 class="fade-up">Já disseste alguma<br>destas frases?</h2>
+    <span class="eyebrow eyebrow-light fade-up">As palavras das minhas pacientes</span>
+    <h2 class="fade-up">É provável que algumas<br>sejam suas.</h2>
     <ul class="whisper-list">
       <li class="whisper-item fade-up">
         <span class="whisper-num">01</span>
-        <span class="whisper-text">&ldquo;Eu não como nada de diferente e a barriga saiu do nada.&rdquo;</span>
+        <span class="whisper-text">&ldquo;Fiz tudo certo. A dieta, o exercício, os suplementos que ia pesquisando. Um quilo em três meses de restrição real.&rdquo;</span>
       </li>
       <li class="whisper-item fade-up">
         <span class="whisper-num">02</span>
-        <span class="whisper-text">&ldquo;Ao final da tarde é como se alguém me tivesse desligado da ficha.&rdquo;</span>
+        <span class="whisper-text">&ldquo;Adormeço a meio das reuniões. Levanto-me mais cansada do que me deitei.&rdquo;</span>
       </li>
       <li class="whisper-item fade-up">
         <span class="whisper-num">03</span>
-        <span class="whisper-text">&ldquo;Acordo às 4 da manhã. Todos os dias. E depois não durmo mais.&rdquo;</span>
+        <span class="whisper-text">&ldquo;O ciclo passou a ter vida própria &mdash; dias maus, humor em colapso, fluxos que não fazem sentido.&rdquo;</span>
       </li>
       <li class="whisper-item fade-up">
         <span class="whisper-num">04</span>
-        <span class="whisper-text">&ldquo;A libido? Não existe. O meu corpo simplesmente não responde.&rdquo;</span>
+        <span class="whisper-text">&ldquo;Cabelo a cair no chuveiro. Pele sem brilho. Nevoeiro mental que me rouba o trabalho.&rdquo;</span>
       </li>
       <li class="whisper-item fade-up">
         <span class="whisper-num">05</span>
-        <span class="whisper-text">&ldquo;Esqueço palavras a meio da frase. Já me aconteceu em reuniões.&rdquo;</span>
-      </li>
-      <li class="whisper-item fade-up">
-        <span class="whisper-num">06</span>
-        <span class="whisper-text">&ldquo;O cabelo. Cai no chuveiro, na almofada, quando passo a mão.&rdquo;</span>
-      </li>
-      <li class="whisper-item fade-up">
-        <span class="whisper-num">07</span>
-        <span class="whisper-text">&ldquo;Faço os exames, a médica diz que está tudo bem. Como é que pode estar?&rdquo;</span>
-      </li>
-      <li class="whisper-item fade-up">
-        <span class="whisper-num">08</span>
-        <span class="whisper-text">&ldquo;Antes não era assim. E ninguém me sabe dizer porquê.&rdquo;</span>
+        <span class="whisper-text">&ldquo;E em todos os consultórios onde passei, a mesma resposta: está tudo normal.&rdquo;</span>
       </li>
     </ul>
   </div>
@@ -405,24 +418,24 @@ footer{background:var(--footer-bg);padding:72px 0 48px}
 <!-- 03 OUTCOMES -->
 <section id="outcomes">
   <div class="section-inner">
-    <span class="eyebrow fade-up">O que vamos construir</span>
-    <h2 class="fade-up">A vida depois de perceberes</h2>
+    <span class="eyebrow fade-up">A vida depois</span>
+    <h2 class="fade-up" style="max-width:700px">Imagine acordar de manhã<br>já com energia.</h2>
     <div class="outcomes-grid">
       <div class="outcome-col fade-up">
         <span class="outcome-roman">I.</span>
         <h3>Energia real</h3>
-        <p>Não a de suplementos de manhã e colapso às três da tarde. A energia que nasce de um metabolismo funcional, de um intestino que absorve, de hormonas que comunicam. Sustentada, silenciosa, sua.</p>
+        <p>Não forçada pela cafeína &mdash; real. A energia que nasce de um metabolismo funcional, de um intestino que absorve, de hormonas que comunicam. Sustentada. Sua.</p>
       </div>
       <div class="outcome-col fade-up">
         <span class="outcome-roman">II.</span>
         <h3>Cabeça clara</h3>
-        <p>Encontrar as palavras. Completar o pensamento. Estar presente na conversa. O brain fog não é inevitável &mdash; é um sinal que tem causa, tem nome, tem protocolo.</p>
-        <p style="margin-top:16px;font-family:var(--font-serif);font-style:italic;font-size:.9rem;color:var(--sage-deep)">O teu cérebro está inflamado, não preguiçoso.</p>
+        <p>Entrar numa reunião com foco. O ciclo previsível. O peso a começar finalmente a ceder sem se torturar. Saber exactamente o que se passa no seu corpo &mdash; e porquê.</p>
       </div>
       <div class="outcome-col fade-up">
         <span class="outcome-roman">III.</span>
-        <h3>Uma especialista que lê</h3>
-        <p>Não um relatório de 14 páginas que termina em &ldquo;normal&rdquo;. Uma médica que cruza os teus dados com a tua história, que percebe o padrão, que te explica o que está a acontecer.</p>
+        <h3>Uma médica que assume</h3>
+        <p>Ter uma médica que lhe diz o próximo passo &mdash; todos os meses. Não um relatório de 14 páginas que termina em &ldquo;normal&rdquo;. Um plano. Uma direcção. Uma pessoa.</p>
+        <p style="margin-top:20px;font-family:var(--font-serif);font-style:italic;font-size:.9rem;color:var(--sage-deep)">&ldquo;É isto que vamos construir.&rdquo;</p>
       </div>
     </div>
   </div>
@@ -651,13 +664,13 @@ footer{background:var(--footer-bg);padding:72px 0 48px}
   <div class="section-inner" style="text-align:center">
     <span class="alpha-symbol fade-up">&alpha;</span>
     <span class="programa-wordmark fade-up">ALETHEIA</span>
-    <span class="programa-etymology fade-up">&alpha;&lambda;&eta;&theta;&epsilon;&iota;&alpha; &middot; grego antigo &middot; &laquo;o que não está oculto&raquo;</span>
-    <span class="programa-tagline fade-up">&ldquo;A verdade que o teu corpo já sabia. Agora com dados.&rdquo;</span>
+    <span class="programa-etymology fade-up">&alpha;&lambda;&eta;&theta;&epsilon;&iota;&alpha; &middot; grego antigo &middot; &laquo;verdade &mdash; aquilo que estava escondido e precisa de ser visto&raquo;</span>
+    <span class="programa-tagline fade-up">&ldquo;É um acompanhamento clínico contínuo, totalmente personalizado. Começa sempre com o Relatório BioFuncional ODX. A partir daí, cada decisão é tomada por mim, com base em ciência e em mais de 20 anos de leitura clínica.&rdquo;</span>
     <span class="programa-price fade-up">
-      Programa mensal &middot; tudo incluído
+      Acompanhamento mensal &middot; tudo incluído &middot; sem custos escondidos
       <strong>&euro;199 / mês</strong>
     </span>
-    <a href="mailto:info@catarinaveiga.com?subject=Aletheia%20%E2%80%94%20Quero%20fazer%20parte%20do%20programa" class="btn-gold fade-up">Quero fazer parte &rarr;</a>
+    <a href="mailto:info@catarinaveiga.com?subject=Aletheia%20%E2%80%94%20Avalia%C3%A7%C3%A3o%20Inicial" class="btn-gold fade-up">Marcar avaliação inicial &rarr;</a>
   </div>
 </section>
 
@@ -795,19 +808,19 @@ footer{background:var(--footer-bg);padding:72px 0 48px}
 <!-- 11 OBJEÇÕES -->
 <section id="objecoes">
   <div class="section-inner">
-    <span class="eyebrow eyebrow-light fade-up">Honestidade radical</span>
-    <h2 class="fade-up">As três dúvidas</h2>
+    <span class="eyebrow eyebrow-light fade-up">Provavelmente está a pensar três coisas</span>
+    <h2 class="fade-up">As dúvidas que<br>fazem sentido ter.</h2>
     <div class="objecao-item fade-up">
-      <p class="objecao-q">&ldquo;Já fiz tantos exames. Estou farta de procurar resposta.&rdquo;</p>
-      <p class="objecao-a">Percebo. A maioria dos exames convencionais estão correctos &mdash; mas interpretados pelo intervalo errado. A diferença entre &ldquo;normal de laboratório&rdquo; e &ldquo;óptimo funcional&rdquo; pode ser a diferença entre continuar exausta e voltar a ter energia. O que vamos fazer não é mais do mesmo.</p>
+      <p class="objecao-q">&ldquo;Vai funcionar no meu caso?&rdquo;</p>
+      <p class="objecao-a">Não sei ainda. É exactamente por isso que o programa começa com uma avaliação inicial &mdash; uma conversa em que revejo a sua história e os seus exames antes de decidirmos se faz sentido avançar.</p>
     </div>
     <div class="objecao-item fade-up">
-      <p class="objecao-q">&ldquo;&euro;199 por mês é muito para mim agora.&rdquo;</p>
-      <p class="objecao-a">É um investimento real e compreendo que pese. Mas considera o custo do que já gastaste em consultas avulsas, suplementos sem protocolo, exames repetidos. O Aletheia é um sistema contínuo, não uma consulta isolada. E inclui o relatório ODX (&euro;150), duas consultas MGF e acompanhamento mensal &mdash; tudo coordenado.</p>
+      <p class="objecao-q">&ldquo;Preciso mesmo de 6 meses?&rdquo;</p>
+      <p class="objecao-a">Não necessariamente. Há casos que resolvem em 3. Há casos que precisam de mais. Decidimos juntas à medida que vemos o corpo responder.</p>
     </div>
     <div class="objecao-item fade-up">
-      <p class="objecao-q">&ldquo;Tenho médico. Para que preciso de outro?&rdquo;</p>
-      <p class="objecao-a">O Aletheia não substitui o teu médico &mdash; trabalha com ele. A coordenação total inclui comunicação com o teu MGF e especialistas. O que proponho é uma camada de profundidade que a medicina convencional raramente tem tempo para oferecer: interpretar padrões, cruzar dados, acompanhar a progressão.</p>
+      <p class="objecao-q">&ldquo;&euro;199 por mês é para mim?&rdquo;</p>
+      <p class="objecao-a">Cada pessoa sabe o seu orçamento. O que posso dizer é o que está incluído &mdash; e que é o acompanhamento médico completo que deveria existir e raramente existe.</p>
     </div>
   </div>
 </section>
@@ -817,21 +830,22 @@ footer{background:var(--footer-bg);padding:72px 0 48px}
   <div class="section-inner">
     <span class="eyebrow fade-up">Vozes reais</span>
     <h2 class="fade-up">O que dizem as mulheres do programa</h2>
+    <p class="fade-up" style="font-family:var(--font-sans);font-size:.82rem;color:var(--ink-soft);letter-spacing:.06em;margin-bottom:48px">4.8 &#9733; Google &middot; 18 críticas &middot; Uma linha que se repete</p>
     <div class="testi-grid">
       <div class="testi-card fade-up">
         <span class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-        <p class="testi-quote">&ldquo;Pela primeira vez em anos alguém me explicou o porquê. Não só o quê. Isso muda tudo.&rdquo;</p>
-        <span class="testi-name">Ana L. &middot; 47 anos &middot; Lisboa</span>
+        <p class="testi-quote">&ldquo;Finalmente consegui que alguém me escutasse.&rdquo;</p>
+        <span class="testi-name">Alexandra Fernandes</span>
       </div>
       <div class="testi-card fade-up">
         <span class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-        <p class="testi-quote">&ldquo;Três médicos disseram que estava tudo bem. A Catarina encontrou o problema em duas semanas.&rdquo;</p>
-        <span class="testi-name">Marta F. &middot; 53 anos &middot; Porto</span>
+        <p class="testi-quote">&ldquo;Os níveis de energia, a clareza mental, e os quilos que perco &mdash; sem fazer dieta nenhuma.&rdquo;</p>
+        <span class="testi-name">Mariana Fernandes</span>
       </div>
       <div class="testi-card fade-up">
         <span class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-        <p class="testi-quote">&ldquo;Voltei a dormir. Voltei a pensar com clareza. Voltei a ser eu. Não sei como agradecer.&rdquo;</p>
-        <span class="testi-name">Sofia C. &middot; 44 anos &middot; Cascais</span>
+        <p class="testi-quote">&ldquo;Em 4 consultas, o meu vitiligo em remissão &mdash; algo que nunca tinha acontecido.&rdquo;</p>
+        <span class="testi-name">Vanessa Lima</span>
       </div>
     </div>
   </div>
@@ -857,12 +871,13 @@ footer{background:var(--footer-bg);padding:72px 0 48px}
 <section id="cta-final">
   <div class="section-inner">
     <span class="cta-final-alpha fade-up">&alpha;</span>
-    <h2 class="cta-final-heading fade-up">O teu corpo não está a inventar.</h2>
-    <span class="cta-final-tagline fade-up">Está a pedir que alguém o leia com atenção.</span>
+    <h2 class="cta-final-heading fade-up">O programa começa com<br>uma avaliação inicial.</h2>
+    <span class="cta-final-tagline fade-up">É aí que começamos. Se for a sua hora &mdash; estou cá.</span>
     <div class="cta-final-btns fade-up">
-      <a href="mailto:info@catarinaveiga.com?subject=Aletheia%20%E2%80%94%20Quero%20fazer%20parte%20do%20programa" class="btn-gold">Falar com a Dra. Catarina &rarr;</a>
+      <a href="mailto:info@catarinaveiga.com?subject=Aletheia%20%E2%80%94%20Avalia%C3%A7%C3%A3o%20Inicial" class="btn-gold">Marcar avaliação inicial &rarr;</a>
       <a href="https://wa.me/351937046132" class="btn-outline-white">WhatsApp</a>
     </div>
+    <p class="fade-up" style="font-family:var(--font-sans);font-size:.75rem;color:rgba(255,255,255,0.25);letter-spacing:.08em;margin-top:32px">catarinaveiga.com &middot; Aletheia</p>
   </div>
 </section>
 
