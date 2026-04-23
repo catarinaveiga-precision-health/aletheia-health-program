@@ -38,23 +38,28 @@ body{font-family:var(--font-sans);background:var(--bg);color:var(--ink);overflow
 #announce-bar a{color:var(--ink);font-weight:500;text-decoration:underline;text-underline-offset:3px}
 
 /* NAV */
-#nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between;transition:background .35s ease,backdrop-filter .35s ease}
-#nav.frosted{background:rgba(14,13,11,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
-.nav-logo{font-family:var(--font-serif);font-weight:300;font-size:1.25rem;color:#fff;letter-spacing:.15em;text-decoration:none;text-transform:uppercase}
+#nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between;transition:background .4s ease,backdrop-filter .4s ease,border-color .4s ease;border-bottom:1px solid transparent}
+#nav.frosted{background:rgba(242,240,236,0.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-color:rgba(113,130,129,0.15)}
+.nav-logo{font-family:var(--font-serif);font-weight:300;font-size:1.25rem;color:rgba(240,235,225,0.9);letter-spacing:.15em;text-decoration:none;text-transform:uppercase;transition:color .4s}
+#nav.frosted .nav-logo{color:var(--sage)}
 .nav-links{display:flex;gap:36px;list-style:none;align-items:center}
-.nav-links a{font-family:var(--font-sans);font-size:.8rem;font-weight:400;color:rgba(255,255,255,.65);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;transition:color .2s}
-.nav-links a:hover{color:#fff}
-.nav-cta{color:var(--ink)!important;background:var(--gold);padding:9px 22px;border-radius:50px;transition:background .2s!important}
-.nav-cta:hover{background:var(--gold-soft)!important}
+.nav-links a{font-family:var(--font-sans);font-size:.78rem;font-weight:400;color:rgba(240,235,225,0.6);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:rgba(240,235,225,0.95)}
+#nav.frosted .nav-links a{color:rgba(85,85,85,0.75)}
+#nav.frosted .nav-links a:hover{color:var(--sage)}
+.nav-invite{font-family:var(--font-sans);font-size:.7rem;font-weight:400;color:rgba(113,130,129,0.7);letter-spacing:.14em;text-transform:uppercase;transition:color .4s}
+#nav.frosted .nav-invite{color:var(--sage)}
 #hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none}
-#hamburger span{display:block;width:22px;height:1.5px;background:#fff;transition:transform .3s,opacity .3s}
+#hamburger span{display:block;width:22px;height:1.5px;background:rgba(240,235,225,0.8);transition:transform .3s,opacity .3s,background .4s}
+#nav.frosted #hamburger span{background:var(--sage)}
 #hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
 #hamburger.open span:nth-child(2){opacity:0}
 #hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-#mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;background:rgba(14,13,11,.97);backdrop-filter:blur(16px);z-index:99;padding:32px 48px 48px;flex-direction:column;gap:28px}
+#mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;background:rgba(242,240,236,0.97);backdrop-filter:blur(20px);z-index:99;padding:32px 48px 48px;flex-direction:column;gap:28px;border-bottom:1px solid rgba(113,130,129,0.12)}
 #mobile-menu.open{display:flex}
-#mobile-menu a{font-family:var(--font-sans);font-size:1.1rem;font-weight:300;color:rgba(255,255,255,.75);text-decoration:none;letter-spacing:.04em;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:20px}
+#mobile-menu a{font-family:var(--font-sans);font-size:1rem;font-weight:300;color:rgba(85,85,85,0.8);text-decoration:none;letter-spacing:.04em;border-bottom:1px solid rgba(113,130,129,0.1);padding-bottom:20px}
 #mobile-menu a:last-child{border-bottom:none}
+.mobile-invite{font-family:var(--font-sans);font-size:.78rem;color:var(--sage);letter-spacing:.1em;text-transform:uppercase}
 
 /* HERO */
 #hero{position:relative;width:100%;height:100svh;min-height:600px;background:var(--hero-bg);overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
@@ -297,11 +302,6 @@ footer{background:var(--footer-bg);padding:72px 0 48px}
 </head>
 <body>
 
-<!-- ANNOUNCE BAR -->
-<div id="announce-bar">
-  Programa Aletheia &middot; Vagas limitadas &middot; <a href="https://catarinaveigaagendamento.as.me">Marcar avaliação inicial &rarr;</a>
-</div>
-
 <!-- NAV -->
 <nav id="nav">
   <a href="#" class="nav-logo">Aletheia</a>
@@ -310,8 +310,8 @@ footer{background:var(--footer-bg);padding:72px 0 48px}
     <li><a href="#outcomes">Resultados</a></li>
     <li><a href="#protocol">Protocolo</a></li>
     <li><a href="#servicos">Programa</a></li>
-    <li><a href="https://catarinaveigaagendamento.as.me" class="nav-cta">Avaliação inicial</a></li>
   </ul>
+  <span class="nav-invite">Por convite</span>
   <button id="hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -323,7 +323,7 @@ footer{background:var(--footer-bg);padding:72px 0 48px}
   <a href="#outcomes" onclick="closeMobileMenu()">Resultados</a>
   <a href="#protocol" onclick="closeMobileMenu()">Protocolo</a>
   <a href="#servicos" onclick="closeMobileMenu()">Programa</a>
-  <a href="https://catarinaveigaagendamento.as.me">Avaliação inicial</a>
+  <span class="mobile-invite">Programa por convite</span>
 </div>
 
 <!-- HERO -->
@@ -333,9 +333,6 @@ footer{background:var(--footer-bg);padding:72px 0 48px}
     <span class="hero-eyebrow">Catarina Veiga &middot; Medicina Funcional de Precisão</span>
     <span id="hero-wordmark">ALETHEIA</span>
     <p class="hero-tagline">&ldquo;Os teus exames estão todos bons.&rdquo;<br>Mas tu sabes que algo não está.</p>
-  </div>
-  <div class="hero-cta-wrap">
-    <a href="https://catarinaveigaagendamento.as.me" class="hero-cta">Marcar avaliação inicial &rarr;</a>
   </div>
 </section>
 
@@ -669,7 +666,7 @@ footer{background:var(--footer-bg);padding:72px 0 48px}
       Acompanhamento mensal &middot; tudo incluído &middot; sem custos escondidos
       <strong>&euro;199 / mês</strong>
     </span>
-    <a href="https://catarinaveigaagendamento.as.me" class="btn-gold fade-up">Marcar avaliação inicial &rarr;</a>
+    <p class="fade-up" style="font-family:var(--font-sans);font-size:.75rem;font-weight:400;color:rgba(255,255,255,.3);letter-spacing:.14em;text-transform:uppercase;margin-top:8px">Programa por convite &middot; info@catarinaveiga.com</p>
   </div>
 </section>
 
@@ -872,10 +869,7 @@ footer{background:var(--footer-bg);padding:72px 0 48px}
     <span class="cta-final-alpha fade-up">&alpha;</span>
     <h2 class="cta-final-heading fade-up">O programa começa com<br>uma avaliação inicial.</h2>
     <span class="cta-final-tagline fade-up">É aí que começamos. Se for a tua hora &mdash; estou cá.</span>
-    <div class="cta-final-btns fade-up">
-      <a href="https://catarinaveigaagendamento.as.me" class="btn-gold">Marcar avaliação inicial &rarr;</a>
-    </div>
-    <p class="fade-up" style="font-family:var(--font-sans);font-size:.75rem;color:rgba(255,255,255,0.25);letter-spacing:.08em;margin-top:32px">catarinaveiga.com &middot; Aletheia</p>
+    <p class="fade-up" style="font-family:var(--font-sans);font-size:.75rem;font-weight:400;color:rgba(113,130,129,0.6);letter-spacing:.14em;text-transform:uppercase;margin-top:8px">Programa por convite &middot; info@catarinaveiga.com</p>
   </div>
 </section>
 
@@ -900,7 +894,6 @@ footer{background:var(--footer-bg);padding:72px 0 48px}
         <h5>Contacto</h5>
         <ul>
           <li><a href="mailto:info@catarinaveiga.com">info@catarinaveiga.com</a></li>
-          <li><a href="https://catarinaveigaagendamento.as.me">Marcar avaliação inicial</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -919,19 +912,6 @@ footer{background:var(--footer-bg);padding:72px 0 48px}
   </div>
 </footer>
 
-<!-- POPUP -->
-<div id="popup-overlay">
-  <div id="popup-box">
-    <button id="popup-close" aria-label="Fechar">&times;</button>
-    <span class="popup-alpha">&alpha;</span>
-    <h3>Antes de saíres &mdash;</h3>
-    <p>O programa Aletheia tem vagas limitadas. Marca a tua avaliação inicial e percebemos juntas se faz sentido avançar.</p>
-    <div class="popup-btns">
-      <a href="https://catarinaveigaagendamento.as.me" class="btn-gold">Marcar avaliação inicial &rarr;</a>
-      <button class="popup-dismiss" onclick="closePopup()">Não, obrigada</button>
-    </div>
-  </div>
-</div>
 
 <script>
 (function(){
